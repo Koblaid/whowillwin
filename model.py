@@ -163,15 +163,15 @@ if __name__ == '__main__':
         ''')
         return render_template('tippers.html', tippers=res)
 
-    @app.route('/team/<int:team_id>')
+    @app.route('/team/view/<int:team_id>')
     def team(team_id):
         return render_template('team.html', team=Team.query.get(team_id))
 
-    @app.route('/game/<int:game_id>')
+    @app.route('/game/view/<int:game_id>')
     def game(game_id):
         return render_template('game.html', game=Game.query.get(game_id))
 
-    @app.route('/tipper/<int:tipper_id>')
+    @app.route('/tipper/view/<int:tipper_id>')
     def tipper(tipper_id):
         ((total_score, ), ) = db.engine.execute('''select
                 sum(

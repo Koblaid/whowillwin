@@ -15,7 +15,7 @@ Tipps:
 
     {% for tipp in game.tipps %}
         <tr>
-            <td><a href="/tipper/{{ tipp.tipper.id }}">{{ tipp.tipper }}</a></td>
+            <td><a href="/tipper/view/{{ tipp.tipper.id }}">{{ tipp.tipper }}</a></td>
             <td>{{ tipp.team_a_tipp }}</td>
             <td>{{ tipp.team_b_tipp }}</td>
         </tr>
