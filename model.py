@@ -16,7 +16,7 @@ class Team(db.Model):
     group_id = db.Column(db.Integer, db.ForeignKey(Group.id), nullable=False)
     group = db.relationship(Group, backref=db.backref('teams'))
     
-    def __repr__(self): return '[Gruppe %s] %s' % (self.group.name, self.name)
+    def __repr__(self): return self.name
     
     
 class GameType(db.Model):
@@ -62,7 +62,7 @@ class Tipp(db.Model):
     team_a_tipp = db.Column(db.Integer, nullable=False)
     team_b_tipp = db.Column(db.Integer, nullable=False)
     
-    def __repr__(self): return '%s: %s - %s' % (game.__unicode__(), team_a_tipp, team_b_tipp)
+    def __repr__(self): return '%s: %s - %s' % (self.game.__repr__(), self.team_a_tipp, self.team_b_tipp)
 
 
 
