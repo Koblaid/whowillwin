@@ -1,14 +1,6 @@
 from flask.ext.sqlalchemy import SQLAlchemy                            
 
-from flask import Flask
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
-app.config['SQLALCHEMY_ECHO'] = False
-app.debug = True
-app.secret_key = 'Todo'
-                            
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
     
 class Group(db.Model):
@@ -79,17 +71,27 @@ if __name__ == '__main__':
     from flask.ext.admin.contrib.sqla import ModelView
     
 
-    db.create_all()
-    
-    group_a = Group(name='A')
-    halbfinale = GameType(name='Halbfinale')
-    deutschland = Team(name='Deutschland', group=group_a)
-    england = Team(name='England', group=group_a)
-    ben = Tipper(name='Ben')
-    sarina = Tipper(name='Sarina')
-    
-    #db.session.add_all([group_a, halbfinale, deutschland, england, ben, sarina])
-    db.session.commit()
+    from flask import Flask
+
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+    app.config['SQLALCHEMY_ECHO'] = False
+    app.debug = True
+    app.secret_key = 'Todo'
+
+    db.init_app(app)
+    with app.test_request_context():
+        db.create_all(app=app)
+
+        group_a = Group(name='A')
+        halbfinale = GameType(name='Halbfinale')
+        deutschland = Team(name='Deutschland', group=group_a)
+        england = Team(name='England', group=group_a)
+        ben = Tipper(name='Ben')
+        sarina = Tipper(name='Sarina')
+
+        #db.session.add_all([group_a, halbfinale, deutschland, england, ben, sarina])
+        db.session.commit()
     
     session = db.session
     
