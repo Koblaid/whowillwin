@@ -1,4 +1,4 @@
-Game: {{ game }}<br>
+Game: <a href="/team/view/{{ game.team_a_id}}">{{ game.team_a }}</a> - <a href="/team/view/{{ game.team_b_id}}">{{ game.team_b }}</a><br>
 Game type: {{ game.game_type }} <br>
 Date: {{ game.date }} <br>
 Result: {% if game.team_a_score is not none %} {{ game.team_a_score }} : {{game.team_b_score }} {% endif %}<br>
