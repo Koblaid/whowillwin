@@ -128,6 +128,10 @@ if __name__ == '__main__':
     admin.add_view(ModelView(Tipp, session))
 
 
+    @app.route('/')
+    def index():
+        return render_template('index.html')
+
     @app.route('/teams')
     def teams():
         return render_template('teams.html', groups=Group.query.all())
