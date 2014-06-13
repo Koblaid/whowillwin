@@ -1,7 +1,3 @@
-from sqlalchemy import (Column, Integer, String, ForeignKey, UniqueConstraint,
-                        Boolean, Float, DateTime, Table, create_engine, and_, event)
-#from sqlalchemy.orm import (relationship, backref, sessionmaker, scoped_session,
-#                            mapper)
 from flask.ext.sqlalchemy import SQLAlchemy                            
 
 from flask import Flask
@@ -16,63 +12,63 @@ db = SQLAlchemy(app)
 
     
 class Group(db.Model):
-    id =  Column(Integer, primary_key=True)
-    name = Column(String, nullable=False, unique=True)
+    id =  db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False, unique=True)
     def __repr__(self): return self.name
     
 
 class Team(db.Model):
-    id =  Column(Integer, primary_key=True)
-    name = Column(String, nullable=False, unique=True)
+    id =  db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False, unique=True)
     
-    group_id = Column(Integer, ForeignKey(Group.id), nullable=False)
+    group_id = db.Column(db.Integer, db.ForeignKey(Group.id), nullable=False)
     group = db.relationship(Group, backref=db.backref('teams'))
     
     def __repr__(self): return '[Gruppe %s] %s' % (self.group.name, self.name)
     
     
 class GameType(db.Model):
-    id =  Column(Integer, primary_key=True)
-    name = Column(String, nullable=False, unique=True)
+    id =  db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False, unique=True)
     def __repr__(self): return self.name
     
     
 class Game(db.Model):
-    id =  Column(Integer, primary_key=True)
+    id =  db.Column(db.Integer, primary_key=True)
     
-    game_type_id = Column(Integer, ForeignKey(GameType.id), nullable=False)
+    game_type_id = db.Column(db.Integer, db.ForeignKey(GameType.id), nullable=False)
     game_type = db.relationship(GameType, backref=db.backref('games'))
     
-    team_a_id = Column(Integer, ForeignKey(Team.id), nullable=False)
+    team_a_id = db.Column(db.Integer, db.ForeignKey(Team.id), nullable=False)
     team_a = db.relationship(Team, foreign_keys=team_a_id)
-    team_a_score = Column(Integer)
+    team_a_score = db.Column(db.Integer)
     
-    team_b_id = Column(Integer, ForeignKey(Team.id), nullable=False)
+    team_b_id = db.Column(db.Integer, db.ForeignKey(Team.id), nullable=False)
     team_b = db.relationship(Team, foreign_keys=team_b_id)
-    team_b_score = Column(Integer)
+    team_b_score = db.Column(db.Integer)
     
-    date = Column(DateTime, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
     
     def __repr__(self): return '%s - %s' % (self.team_a.name, self.team_b.name)
     
     
 class Tipper(db.Model):
-    id =  Column(Integer, primary_key=True)
-    name = Column(String, nullable=False, unique=True)
+    id =  db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False, unique=True)
     def __repr__(self): return self.name
     
     
 class Tipp(db.Model):
-    id =  Column(Integer, primary_key=True)
+    id =  db.Column(db.Integer, primary_key=True)
     
-    tipper_id = Column(Integer, ForeignKey(Tipper.id), nullable=False)
+    tipper_id = db.Column(db.Integer, db.ForeignKey(Tipper.id), nullable=False)
     tipper = db.relationship(Tipper, backref='tipps')
     
-    game_id = Column(Integer, ForeignKey(Game.id), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey(Game.id), nullable=False)
     game = db.relationship(Game, backref='games')
     
-    team_a_tipp = Column(Integer, nullable=False)
-    team_b_tipp = Column(Integer, nullable=False)
+    team_a_tipp = db.Column(db.Integer, nullable=False)
+    team_b_tipp = db.Column(db.Integer, nullable=False)
     
     def __repr__(self): return '%s: %s - %s' % (game.__unicode__(), team_a_tipp, team_b_tipp)
 
