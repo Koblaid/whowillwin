@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 Team: {{ team }}<br>
 Gruppe: {{ team.group }} <br>
 Spiele:
@@ -8,3 +11,4 @@ Spiele:
     </li>
 {% endfor %}
 </ul>
+{% endblock %}

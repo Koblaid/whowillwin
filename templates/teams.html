@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 <ul>
 {% for group in groups %}
     {{ group.name }}
@@ -11,5 +14,4 @@
     {% endif %}
 {% endfor %}
 </ul>
-
-
+{% endblock %}

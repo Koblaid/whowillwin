@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 Game: <a href="/team/view/{{ game.team_a_id}}">{{ game.team_a }}</a> - <a href="/team/view/{{ game.team_b_id}}">{{ game.team_b }}</a><br>
 Game type: {{ game.game_type }} <br>
 Date: {{ game.date }} <br>
@@ -23,3 +26,4 @@ Tipps:
 
     </tbody>
 </table>
+{% endblock %}
