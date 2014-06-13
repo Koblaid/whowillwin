@@ -1,7 +1,7 @@
 <ul>
 {% for group in groups %}
     {{ group.name }}
-    
+
     {% if group.teams %}
         <ul>
         {% for team in group.teams %}
@@ -12,4 +12,4 @@
 {% endfor %}
 </ul>
 
-    
+

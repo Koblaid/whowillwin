@@ -1,49 +1,49 @@
-from flask.ext.sqlalchemy import SQLAlchemy                            
+from flask.ext.sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-    
+
 class Group(db.Model):
     id =  db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     def __repr__(self): return self.name
-    
+
 
 class Team(db.Model):
     id =  db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
-    
+
     group_id = db.Column(db.Integer, db.ForeignKey(Group.id), nullable=False)
     group = db.relationship(Group, backref=db.backref('teams'))
-    
+
     def __repr__(self): return self.name
-    
-    
+
+
 class GameType(db.Model):
     id =  db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     def __repr__(self): return self.name
-    
-    
+
+
 class Game(db.Model):
     id =  db.Column(db.Integer, primary_key=True)
-    
+
     game_type_id = db.Column(db.Integer, db.ForeignKey(GameType.id), nullable=False)
     game_type = db.relationship(GameType, backref=db.backref('games'))
-    
+
     team_a_id = db.Column(db.Integer, db.ForeignKey(Team.id), nullable=False)
     team_a = db.relationship(Team, backref=db.backref('games_as_team_a'), foreign_keys=team_a_id)
     team_a_score = db.Column(db.Integer)
-    
+
     team_b_id = db.Column(db.Integer, db.ForeignKey(Team.id), nullable=False)
     team_b = db.relationship(Team, backref=db.backref('games_as_team_b'), foreign_keys=team_b_id)
     team_b_score = db.Column(db.Integer)
-    
+
     date = db.Column(db.DateTime, nullable=False)
-    
+
     def __repr__(self): return '%s - %s' % (self.team_a.name, self.team_b.name)
-    
-    
+
+
     def repr_score(self):
         if self.team_a_score is not None:
             return '{0.team_a_score} : {0.team_b_score}'.format(self)
@@ -57,20 +57,20 @@ class Tipper(db.Model):
     id =  db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     def __repr__(self): return self.name
-    
-    
+
+
 class Tipp(db.Model):
     id =  db.Column(db.Integer, primary_key=True)
-    
+
     tipper_id = db.Column(db.Integer, db.ForeignKey(Tipper.id), nullable=False)
     tipper = db.relationship(Tipper, backref='tipps')
-    
+
     game_id = db.Column(db.Integer, db.ForeignKey(Game.id), nullable=False)
     game = db.relationship(Game, backref='tipps')
-    
+
     team_a_tipp = db.Column(db.Integer, nullable=False)
     team_b_tipp = db.Column(db.Integer, nullable=False)
-    
+
     def __repr__(self): return '%s: %s - %s' % (self.game.__repr__(), self.team_a_tipp, self.team_b_tipp)
 
     def get_score(self):
@@ -93,7 +93,7 @@ class Tipp(db.Model):
 if __name__ == '__main__':
     from flask.ext.admin import Admin
     from flask.ext.admin.contrib.sqla import ModelView
-    
+
 
     from flask import Flask, render_template
 
@@ -116,9 +116,9 @@ if __name__ == '__main__':
 
         #db.session.add_all([group_a, halbfinale, deutschland, england, ben, sarina])
         db.session.commit()
-    
+
     session = db.session
-    
+
     admin = Admin(app)
     admin.add_view(ModelView(Group, session))
     admin.add_view(ModelView(Team, session))
@@ -195,6 +195,6 @@ if __name__ == '__main__':
         return render_template('tipper.html', tipper=Tipper.query.get(tipper_id), total_score=total_score)
 
     app.run(port=5555)
-    
-    
-    
+
+
+
