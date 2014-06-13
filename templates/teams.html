@@ -1,0 +1,15 @@
+<ul>
+{% for group in groups %}
+    {{ group.name }}
+    
+    {% if group.teams %}
+        <ul>
+        {% for team in group.teams %}
+            <li><a href="/team/{{team.id}}">{{ team.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endfor %}
+</ul>
+
+    

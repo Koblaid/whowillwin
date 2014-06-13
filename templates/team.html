@@ -1,0 +1,10 @@
+Team: {{ team }}<br>
+Gruppe: {{ team.group }} <br>
+Spiele:
+<ul>
+{% for game in team.games_as_team_a + team.games_as_team_b %}
+    <li>
+    {{ game.game_type }}: <a href="/game/{{ game.id }}">{{ game }}</a> {{ game.repr_score() }}
+    </li>
+{% endfor %}
+</ul>

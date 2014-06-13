@@ -1,0 +1,7 @@
+<ul>
+{% for tipper in tippers %}
+    <li>
+        <a href="/tipper/{{ tipper.0 }}">{{ tipper.1 }}</a>: {{ tipper.2 }} {% if tipper.2 == 1 %} Punkt {% else %} Punkte {% endif %}
+    </li>
+{% endfor %}
+</ul>

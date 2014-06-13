@@ -1,0 +1,7 @@
+<ul>
+{% for game in games %}
+    <li>
+        [{{ game.game_type.name }}] <a href="/game/{{ game.id }}">{{ game }}</a> {{ game.repr_score() }}
+    </li>
+{% endfor %}
+</ul>

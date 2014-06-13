@@ -1,0 +1,25 @@
+Game: {{ game }}<br>
+Game type: {{ game.game_type }} <br>
+Date: {{ game.date }} <br>
+Result: {% if game.team_a_score is not none %} {{ game.team_a_score }} : {{game.team_b_score }} {% endif %}<br>
+Tipps:
+<table border=1>
+    <thead>
+        <tr>
+            <th>Tipper</th>
+            <th>{{ game.team_a }}</th>
+            <th>{{ game.team_b }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    {% for tipp in game.tipps %}
+        <tr>
+            <td><a href="/tipper/{{ tipp.tipper.id }}">{{ tipp.tipper }}</a></td>
+            <td>{{ tipp.team_a_tipp }}</td>
+            <td>{{ tipp.team_b_tipp }}</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
