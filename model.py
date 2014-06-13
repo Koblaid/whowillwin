@@ -32,11 +32,11 @@ class Game(db.Model):
     game_type = db.relationship(GameType, backref=db.backref('games'))
     
     team_a_id = db.Column(db.Integer, db.ForeignKey(Team.id), nullable=False)
-    team_a = db.relationship(Team, foreign_keys=team_a_id)
+    team_a = db.relationship(Team, backref=db.backref('games_as_team_a'), foreign_keys=team_a_id)
     team_a_score = db.Column(db.Integer)
     
     team_b_id = db.Column(db.Integer, db.ForeignKey(Team.id), nullable=False)
-    team_b = db.relationship(Team, foreign_keys=team_b_id)
+    team_b = db.relationship(Team, backref=db.backref('games_as_team_b'), foreign_keys=team_b_id)
     team_b_score = db.Column(db.Integer)
     
     date = db.Column(db.DateTime, nullable=False)
@@ -57,7 +57,7 @@ class Tipp(db.Model):
     tipper = db.relationship(Tipper, backref='tipps')
     
     game_id = db.Column(db.Integer, db.ForeignKey(Game.id), nullable=False)
-    game = db.relationship(Game, backref='games')
+    game = db.relationship(Game, backref='tipps')
     
     team_a_tipp = db.Column(db.Integer, nullable=False)
     team_b_tipp = db.Column(db.Integer, nullable=False)
