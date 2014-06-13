@@ -16,14 +16,12 @@ db = SQLAlchemy(app)
 
     
 class Group(db.Model):
-    #__tablename__ = 'team'
     id =  Column(Integer, primary_key=True)
     name = Column(String, nullable=False, unique=True)
     def __repr__(self): return self.name
     
 
 class Team(db.Model):
-    #__tablename__ = 'team'
     id =  Column(Integer, primary_key=True)
     name = Column(String, nullable=False, unique=True)
     
@@ -34,14 +32,12 @@ class Team(db.Model):
     
     
 class GameType(db.Model):
-    __tablename__ = 'game_type'
     id =  Column(Integer, primary_key=True)
     name = Column(String, nullable=False, unique=True)
     def __repr__(self): return self.name
     
     
 class Game(db.Model):
-    __tablename__ = 'game'
     id =  Column(Integer, primary_key=True)
     
     game_type_id = Column(Integer, ForeignKey(GameType.id), nullable=False)
@@ -61,14 +57,12 @@ class Game(db.Model):
     
     
 class Tipper(db.Model):
-    __tablename__ = 'tipper'
     id =  Column(Integer, primary_key=True)
     name = Column(String, nullable=False, unique=True)
     def __repr__(self): return self.name
     
     
 class Tipp(db.Model):
-    __tablename__ = 'tipp'
     id =  Column(Integer, primary_key=True)
     
     tipper_id = Column(Integer, ForeignKey(Tipper.id), nullable=False)
