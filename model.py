@@ -196,3 +196,18 @@ def tipper(tipper_id):
 if __name__ == '__main__':
     app.debug = True
     app.run(port=5555)
+else:
+    import os
+    import logging
+
+    current_path = os.path.dirname(os.path.realpath(__file__))
+    logfile_path = os.path.join(current_path, 'whowillwin.log')
+
+    file_handler = logging.FileHandler(logfile_path)
+    file_handler.setLevel(logging.WARNING)
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s '
+        '[in %(pathname)s:%(lineno)d]'
+    ))
+
+    app.logger.addHandler(file_handler)
