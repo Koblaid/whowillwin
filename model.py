@@ -97,7 +97,6 @@ from flask.ext.admin.contrib.sqla import ModelView
 from flask import Flask, render_template
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_ECHO'] = False
 app.secret_key = 'Todo'
 
@@ -196,14 +195,12 @@ def tipper(tipper_id):
 if __name__ == '__main__':
     app.debug = True
     app.run(port=5555)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 else:
     import os
     import logging
 
-    current_path = os.path.dirname(os.path.realpath(__file__))
-    logfile_path = os.path.join(current_path, 'whowillwin.log')
-
-    file_handler = logging.FileHandler(logfile_path)
+    file_handler = logging.FileHandler('/home/www/whowillwin/whowillwin.log')
     file_handler.setLevel(logging.WARNING)
     file_handler.setFormatter(logging.Formatter(
         '%(asctime)s %(levelname)s: %(message)s '
@@ -211,3 +208,4 @@ else:
     ))
 
     app.logger.addHandler(file_handler)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/www-data/whowillwin/db.sqlite'
