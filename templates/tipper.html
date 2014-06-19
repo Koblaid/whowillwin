@@ -16,7 +16,7 @@ Tipps:
 
     {% for tipp in tipper.tipps %}
         <tr>
-            <td><a href="/game/view/{{ tipp.game.id }}">{{ tipp.game.team_a }} - {{ tipp.game.team_b }}</a></td>
+            <td><a href="{{ url_for('game', game_id=tipp.game.id) }}">{{ tipp.game.team_a }} - {{ tipp.game.team_b }}</a></td>
             <td>{{ tipp.team_a_tipp }} : {{ tipp.team_b_tipp }}</td>
             <td>{{ tipp.game.repr_score() }}</td>
             <td>{{ tipp.get_score() }}</td>

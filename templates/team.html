@@ -7,7 +7,7 @@ Spiele:
 <ul>
 {% for game in team.games_as_team_a + team.games_as_team_b %}
     <li>
-    {{ game.game_type }}: <a href="/game/view/{{ game.id }}">{{ game }}</a> {{ game.repr_score() }}
+    {{ game.game_type }}: <a href="{{ url_for('game', game_id=game.id) }}">{{ game }}</a> {{ game.repr_score() }}
     </li>
 {% endfor %}
 </ul>

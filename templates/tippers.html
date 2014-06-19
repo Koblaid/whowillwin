@@ -4,7 +4,7 @@
 <ul>
 {% for tipper in tippers %}
     <li>
-        <a href="/tipper/view/{{ tipper.0 }}">{{ tipper.1 }}</a>: {{ tipper.2 }} {% if tipper.2 == 1 %} Punkt {% else %} Punkte {% endif %}
+        <a href="{{ url_for('tipper', tipper_id=tipper.0) }}">{{ tipper.1 }}</a>: {{ tipper.2 }} {% if tipper.2 == 1 %} Punkt {% else %} Punkte {% endif %}
     </li>
 {% endfor %}
 </ul>

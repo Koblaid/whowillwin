@@ -1,5 +1,8 @@
 {% block menu %}
-    <a href="/">Startseite</a> - <a href="/tippers">Tipper</a> - <a href="/teams">Teams</a> - <a href="/games">Spiele</a>
+    <a href="{{ url_for('index') }}">Startseite</a> -
+    <a href="{{ url_for('tippers') }}">Tipper</a> -
+    <a href="{{ url_for('teams') }}">Teams</a> -
+    <a href="{{ url_for('games') }}">Spiele</a>
     <br><br>
 {% endblock %}
 

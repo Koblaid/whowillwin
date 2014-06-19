@@ -4,7 +4,7 @@
 <ul>
 {% for game in games %}
     <li>
-        [{{ game.game_type.name }}] <a href="/game/view/{{ game.id }}">{{ game }}</a> {{ game.repr_score() }}
+        [{{ game.game_type.name }}] <a href="{{ url_for('game', game_id=game.id) }}">{{ game }}</a> {{ game.repr_score() }}
     </li>
 {% endfor %}
 </ul>
