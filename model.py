@@ -194,8 +194,8 @@ def tipper(tipper_id):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(port=5555)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+    app.run(port=5555)
 else:
     import os
     import logging
