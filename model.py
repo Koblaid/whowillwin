@@ -200,7 +200,9 @@ else:
     import os
     import logging
 
-    file_handler = logging.FileHandler('/home/www/whowillwin/whowillwin.log')
+    data_path = os.environ['DATA_PATH']
+
+    file_handler = logging.FileHandler(os.path.join(data_path, 'whowillwin.log'))
     file_handler.setLevel(logging.WARNING)
     file_handler.setFormatter(logging.Formatter(
         '%(asctime)s %(levelname)s: %(message)s '
@@ -208,4 +210,4 @@ else:
     ))
 
     app.logger.addHandler(file_handler)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/www-data/whowillwin/db.sqlite'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+ os.path.join(data_path, 'whowillwin.sqlite')
